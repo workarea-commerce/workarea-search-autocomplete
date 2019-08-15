@@ -1,0 +1,37 @@
+module Workarea
+  decorate Metrics::SearchByWeek, with: 'search_autocomplete' do
+    decorated do
+      index(
+        { query_string: 1, total_results: 1, searches: 1 },
+        { partial_filter_expression: { total_results: { '$gt' => 0 } } }
+      )
+
+      scope :by_query_string, ->(string) { where(query_string: /^#{string}/) }
+    end
+
+    class_methods do
+      def autocomplete(query_string, max: 3)
+        pipeline = [
+          {
+            '$match' => {
+              total_results: { '$gt' => 0 },
+              query_string: { '$regex' => /^#{query_string}/ }
+            }
+          },
+          { '$project' => { 'query_id' => 1, 'searches' => 1, 'query_string' => 1 } },
+          {
+            '$group' => {
+              '_id' => '$query_id',
+              'searches' => { '$sum' => '$searches' },
+              'query_string' => { '$first' => '$query_string' }
+            }
+          },
+          { '$sort' => { 'searches' => -1 } },
+          { '$limit' => max }
+        ]
+
+        collection.aggregate(pipeline).map { |r| r['query_string'] }
+      end
+    end
+  end
+end

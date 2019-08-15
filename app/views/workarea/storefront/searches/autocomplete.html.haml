@@ -1,0 +1,14 @@
+.search-autocomplete
+  .grid
+    .grid__cell.grid__cell--75
+      .grid
+        - @autocomplete.products.each do |product|
+          .grid__cell.grid__cell--50.grid__cell--33-at-medium.grid__cell--16-at-wide
+            .product-summary.product-summary--small
+              = render 'workarea/storefront/products/summary', product: product
+
+    .grid__cell.grid__cell--25
+      %ul.search-autocomplete__searches-list
+        - @autocomplete.searches.each do |search|
+          %li.search-autocomplete__searches-list-item
+            = link_to search, search_path(q: search), class: 'search-autocomplete__searches-list-link'

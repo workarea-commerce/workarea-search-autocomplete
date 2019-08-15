@@ -1,2 +1,5 @@
-Rails.application.routes.draw do
+Workarea::Storefront::Engine.routes.draw do
+  resource :search, only: [] do
+    get 'autocomplete'
+  end
 end
