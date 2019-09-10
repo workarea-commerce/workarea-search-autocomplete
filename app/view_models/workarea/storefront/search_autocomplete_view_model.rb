@@ -20,6 +20,10 @@ module Workarea
           max: Workarea.config.storefront_search_autocomplete_max_searches
         )
       end
+
+      def no_results?
+        products.empty? && searches.empty?
+      end
     end
   end
 end

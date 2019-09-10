@@ -7,7 +7,7 @@ Workarea::Configuration.define_fields do
 
     field 'Storefront Search Autocomplete Max Products',
       type: :integer,
-      default: 5,
+      default: 4,
       description: 'The max number of search autocomplete products to show in the storefront.'
   end
 end
