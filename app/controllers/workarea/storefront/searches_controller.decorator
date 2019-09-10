@@ -1,6 +1,8 @@
 module Workarea
   decorate Storefront::SearchesController, with: 'search_autocomplete' do
     def autocomplete
+      render nothing: true and return unless request.xhr?
+
       @autocomplete = Storefront::SearchAutocompleteViewModel.wrap(
         search_query,
         view_model_options

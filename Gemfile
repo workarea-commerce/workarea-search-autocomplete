@@ -14,4 +14,4 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-gem 'workarea', git: 'ssh://git@stash.tools.weblinc.com:7999/wl/workarea.git', branch: 'improvements-for-search-metrics-factory'
+gem 'workarea', github: 'workarea-commerce/workarea'
