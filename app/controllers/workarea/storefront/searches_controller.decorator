@@ -2,9 +2,11 @@ module Workarea
   decorate Storefront::SearchesController, with: 'search_autocomplete' do
     def autocomplete
       @autocomplete = Storefront::SearchAutocompleteViewModel.wrap(
-        search_query,
+        QueryString.new(params[:q]).pretty,
         view_model_options
       )
+
+      head 404 if @autocomplete.no_results?
     end
   end
 end

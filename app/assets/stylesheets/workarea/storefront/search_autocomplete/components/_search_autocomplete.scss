@@ -1,0 +1,55 @@
+/*------------------------------------*\
+    #SEARCH-AUTOCOMPLETE
+\*------------------------------------*/
+
+$search-autocomplete-bg-color: $background-color !default;
+$search-autocomplete-border: 1px solid $black !default;
+$search-autocomplete-searches-font-size: 18px !default;
+
+$search-autocomplete-z-indexes: ();
+@each $name in $page-container {
+    $search-autocomplete-z-indexes: append($search-autocomplete-z-indexes, $name);
+
+    @if $name == page-header {
+        $search-autocomplete-z-indexes: append($search-autocomplete-z-indexes, search-autocomplete);
+    }
+}
+
+.search-autocomplete {
+    display: none;
+    background: $search-autocomplete-bg-color;
+    border: $search-autocomplete-border;
+    padding: $spacing-unit;
+
+    @include respond-to($medium-breakpoint) {
+        display: block;
+        width: 90vw;
+    }
+
+    @include respond-to($x-wide-breakpoint) {
+        width: 1050px;
+    }
+}
+
+.search-autocomplete--visible {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: index($search-autocomplete-z-indexes, search-autocomplete);
+}
+
+
+    .search-autocomplete__products {
+        text-align: left;
+    }
+
+
+    .search-autocomplete__searches {
+        @extend %list-reset;
+        font-size: $search-autocomplete-searches-font-size;
+        text-align: right;
+    }
+
+        .search-autocomplete__searches-item {}
+
+            .search-autocomplete__searches-link {}

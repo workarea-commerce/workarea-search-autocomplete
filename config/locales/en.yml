@@ -1,0 +1,5 @@
+en:
+  workarea:
+    storefront:
+      search_autocomplete:
+        products_heading: "Product Results: %{term}"

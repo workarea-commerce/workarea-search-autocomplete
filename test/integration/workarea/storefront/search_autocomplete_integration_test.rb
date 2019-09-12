@@ -17,6 +17,12 @@ module Workarea
         assert_match(/test two.*test one/m, response.body)
         assert_includes(response.body, storefront.product_path(test_two))
         refute_includes(response.body, storefront.product_path(test_one))
+
+        get storefront.autocomplete_search_path(q: 'TeS')
+        assert(response.ok?)
+        assert_match(/test two.*test one/m, response.body)
+        assert_includes(response.body, storefront.product_path(test_two))
+        refute_includes(response.body, storefront.product_path(test_one))
       end
     end
   end
