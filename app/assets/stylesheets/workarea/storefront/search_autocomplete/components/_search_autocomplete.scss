@@ -4,7 +4,6 @@
 
 $search-autocomplete-bg-color: $background-color !default;
 $search-autocomplete-border: 1px solid $black !default;
-$search-autocomplete-searches-font-size: 18px !default;
 
 $search-autocomplete-z-indexes: ();
 @each $name in $page-container {
@@ -39,6 +38,7 @@ $search-autocomplete-z-indexes: ();
 }
 
 
+    .search-autocomplete__content,
     .search-autocomplete__products {
         text-align: left;
     }
@@ -46,7 +46,6 @@ $search-autocomplete-z-indexes: ();
 
     .search-autocomplete__searches {
         @extend %list-reset;
-        font-size: $search-autocomplete-searches-font-size;
         text-align: right;
     }
 
