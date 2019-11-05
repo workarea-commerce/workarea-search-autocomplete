@@ -3,3 +3,5 @@ en:
     storefront:
       search_autocomplete:
         products_heading: "Product Results: %{term}"
+        trending_products: Trending Products
+        trending_searches: Trending Searches

@@ -6,6 +6,13 @@ module Workarea
         full_results.products.take(Workarea.config.storefront_search_autocomplete_max_products)
       end
 
+      def trending_products
+        @trending_products ||= SearchAutocompleteProductsViewModel.wrap(
+          Workarea::Insights::TrendingProducts.current,
+          options
+        )
+      end
+
       def full_results
         @full_results ||= SearchViewModel.wrap(response, options)
       end
@@ -21,8 +28,16 @@ module Workarea
         )
       end
 
-      def no_results?
-        products.empty? && searches.empty?
+      def trending_searches
+        @trending_searches ||= begin
+          Workarea::Insights::TrendingSearches.current.results.map do |v|
+            v['query_string']
+          end
+        end
+      end
+
+      def content
+        Storefront::SearchViewModel.new(response, options)
       end
     end
   end

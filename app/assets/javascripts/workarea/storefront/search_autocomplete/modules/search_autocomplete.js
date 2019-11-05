@@ -56,6 +56,7 @@ WORKAREA.registerModule('searchAutocomplete', (function () {
         handleUserInput = function (event) {
             var value = event.target.value;
 
+            if (_.isEmpty(value)) { hide(); return; }
             if ( ! enoughCharacters(value)) { return; }
             if (duplicateRequest(event.target, value)) { return; }
 
