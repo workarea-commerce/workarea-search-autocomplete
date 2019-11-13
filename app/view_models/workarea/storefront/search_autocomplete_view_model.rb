@@ -31,7 +31,7 @@ module Workarea
       def trending_searches
         @trending_searches ||= begin
           Workarea::Insights::TrendingSearches.current.results.map do |v|
-            v['query_id']
+            v['query_string']
           end
         end
       end
