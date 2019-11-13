@@ -71,63 +71,54 @@ module Workarea
 
       def generate_trending_searches
         create_search_by_week(
-          query_id: 'foo_search',
           query_string: 'foo search',
           revenue_change: 10,
           orders: 5,
           reporting_on: Time.zone.local(2018, 12, 3)
         )
         create_search_by_week(
-          query_id: 'foo_search',
           query_string: 'foo search',
           revenue_change: -10,
           orders: 0,
           reporting_on: Time.zone.local(2018, 12, 10)
         )
         create_search_by_week(
-          query_id: 'foo_search',
           query_string: 'foo search',
           revenue_change: 20,
           orders: 10,
           reporting_on: Time.zone.local(2018, 12, 17)
         )
         create_search_by_week(
-          query_id: 'bar_search',
           query_string: 'bar search',
           revenue_change: 10,
           orders: 5,
           reporting_on: Time.zone.local(2018, 12, 3)
         )
         create_search_by_week(
-          query_id: 'bar_search',
           query_string: 'bar search',
           revenue_change: -10,
           orders: 0,
           reporting_on: Time.zone.local(2018, 12, 10)
         )
         create_search_by_week(
-          query_id: 'bar_search',
           query_string: 'bar search',
           revenue_change: 0,
           orders: 0,
           reporting_on: Time.zone.local(2018, 12, 17)
         )
         create_search_by_week(
-          query_id: 'baz_search',
           query_string: 'baz search',
           revenue_change: 10,
           orders: 5,
           reporting_on: Time.zone.local(2018, 12, 3)
         )
         create_search_by_week(
-          query_id: 'baz_search',
           query_string: 'baz search',
           revenue_change: -10,
           orders: 1,
           reporting_on: Time.zone.local(2018, 12, 10)
         )
         create_search_by_week(
-          query_id: 'baz_search',
           query_string: 'baz search',
           revenue_change: 0,
           orders: 0,
@@ -162,6 +153,7 @@ module Workarea
         within '#search_autocomplete' do
           assert_text(t('workarea.storefront.search_autocomplete.trending_products'))
           assert_text(t('workarea.storefront.search_autocomplete.trending_searches'))
+          save_and_open_screenshot
           assert_match(/Foo Product.*Baz Product.*Bar Product/m, page.body);
           assert_match(/foo search.*baz search.*bar search/m, page.body);
         end
