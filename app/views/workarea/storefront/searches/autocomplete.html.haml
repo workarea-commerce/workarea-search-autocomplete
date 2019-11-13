@@ -1,15 +1,40 @@
 .grid.grid--rev
   .grid__cell.grid__cell--25
+    - if @autocomplete.searches.blank?
+      %span.search-autocomplete__heading= t('workarea.storefront.search_autocomplete.trending_searches')
     %ul.search-autocomplete__searches
-      - @autocomplete.searches.each do |search|
-        %li.search-autocomplete__searches-item
-          = link_to search, search_path(q: search), class: 'search-autocomplete__searches-link'
+      - if @autocomplete.searches.blank?
+        - @autocomplete.trending_searches.each do |search|
+          %li.search-autocomplete__searches-item
+            = link_to search, search_path(q: search), class: 'search-autocomplete__searches-link'
+      - else
+        - @autocomplete.searches.each do |search|
+          %li.search-autocomplete__searches-item
+            = link_to search, search_path(q: search), class: 'search-autocomplete__searches-link'
+
+    = append_partials('search_autocomplete_under_searches')
+
   .grid__cell.grid__cell--75
     .search-autocomplete__products
-      %span.search-autocomplete__heading= t('workarea.storefront.search_autocomplete.products_heading', term: @autocomplete.searches.first)
+      %span.search-autocomplete__heading
+        - if @autocomplete.products.blank?
+          = t('workarea.storefront.search_autocomplete.trending_products')
+        - else
+          = t('workarea.storefront.search_autocomplete.products_heading', term: @autocomplete.searches.first)
       .grid
-        - @autocomplete.products.each do |product|
-          .grid__cell.grid__cell--25
-            .product-summary
-              = render 'workarea/storefront/products/summary', product: product
+        - if @autocomplete.products.blank?
+          - @autocomplete.trending_products.each do |product|
+            .grid__cell.grid__cell--25
+              .product-summary
+                = render 'workarea/storefront/products/summary', product: product
+        - else
+          - @autocomplete.products.each do |product|
+            .grid__cell.grid__cell--25
+              .product-summary
+                = render 'workarea/storefront/products/summary', product: product
+
+    - if @autocomplete.content.customization_content_blocks_for('autocomplete').present?
+      .autocomplete.content-autocomplete__content
+        = render_content_blocks(@autocomplete.content.customization_content_blocks_for('autocomplete'))
+
 
