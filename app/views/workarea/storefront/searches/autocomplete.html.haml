@@ -12,7 +12,7 @@
           %li.search-autocomplete__searches-item
             = link_to search, search_path(q: search), class: 'search-autocomplete__searches-link'
 
-    = append_partials('search_autocomplete_under_searches')
+    = append_partials('storefront.search_autocomplete_under_searches')
 
   .grid__cell.grid__cell--75
     .search-autocomplete__products
@@ -36,5 +36,3 @@
     - if @autocomplete.content.customization_content_blocks_for('autocomplete').present?
       .autocomplete.content-autocomplete__content
         = render_content_blocks(@autocomplete.content.customization_content_blocks_for('autocomplete'))
-
-
