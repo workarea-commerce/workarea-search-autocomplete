@@ -3,12 +3,10 @@
 
     WORKAREA.config.searchAutocomplete = {
         selector: '#storefront_search',
-        minLength: 2,
         delays: {
-            input: 1000,
-            change: 500,
-            blur: 250
+            input: 500,
+            change: 250,
+            focus: 0
         }
     };
 })();
-

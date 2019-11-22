@@ -5,7 +5,8 @@
 WORKAREA.registerModule('searchAutocomplete', (function () {
     'use strict';
 
-    var hide = function () {
+    var cache = {},
+        hide = function () {
             $('#search_autocomplete')
             .addClass('visually-hidden')
             .removeClass('search-autocomplete--visible')
@@ -23,30 +24,6 @@ WORKAREA.registerModule('searchAutocomplete', (function () {
                 .addClass('page-header__search-value--autocomplete');
         },
 
-        request = function (input) {
-            var endpoint = WORKAREA.routes.storefront.autocompleteSearchPath({
-                q: input.value
-            });
-
-            $.get(endpoint)
-            .done(function (response) {
-                $(input).data('searchAutocompletePreviousQuery', input.value);
-                render(response);
-            })
-            .fail(function () {
-                $(input).data('searchAutocompletePreviousQuery', null);
-                hide();
-            });
-        },
-
-        duplicateRequest = function (input, value) {
-            return $(input).data('searchAutocompletePreviousQuery') === value;
-        },
-
-        enoughCharacters = function (value) {
-            return value.length >= WORKAREA.config.searchAutocomplete.minLength;
-        },
-
         handleUserClick = function (event) {
             if (_.isEmpty($(event.target).closest($('#search_autocomplete')))) {
                 hide();
@@ -54,13 +31,21 @@ WORKAREA.registerModule('searchAutocomplete', (function () {
         },
 
         handleUserInput = function (event) {
-            var value = event.target.value;
+            var endpoint = WORKAREA.routes.storefront.autocompleteSearchPath({
+                q: event.target.value
+            });
 
-            if (_.isEmpty(value)) { hide(); return; }
-            if ( ! enoughCharacters(value)) { return; }
-            if (duplicateRequest(event.target, value)) { return; }
+            if (cache[endpoint]) {
+                render(cache[endpoint]);
+            } else {
+                $.get(endpoint)
+                .fail(function () { hide(); })
+                .done(function (response) {
+                    cache[endpoint] = response;
+                    render(response);
+                });
+            }
 
-            request(event.target);
         },
 
         getDelay = function (type) {
@@ -78,6 +63,7 @@ WORKAREA.registerModule('searchAutocomplete', (function () {
          */
         init = function ($scope) {
             $(WORKAREA.config.searchAutocomplete.selector, $scope)
+            .on('focus', _.debounce(handleUserInput, getDelay('focus')))
             .on('input', _.debounce(handleUserInput, getDelay('input')))
             .on('change', _.debounce(handleUserInput, getDelay('change')));
         };
