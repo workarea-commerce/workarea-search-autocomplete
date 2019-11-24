@@ -1,7 +1,10 @@
 .grid.grid--rev
   .grid__cell.grid__cell--25
-    - if @autocomplete.searches.blank?
-      %span.search-autocomplete__heading= t('workarea.storefront.search_autocomplete.trending_searches')
+    %span.search-autocomplete__heading
+      - if @autocomplete.searches.blank?
+        = t('workarea.storefront.search_autocomplete.trending_searches')
+      - else
+        = t('workarea.storefront.search_autocomplete.searches_heading', term: @autocomplete.searches.first)
     %ul.search-autocomplete__searches
       - if @autocomplete.searches.blank?
         - @autocomplete.trending_searches.each do |search|
