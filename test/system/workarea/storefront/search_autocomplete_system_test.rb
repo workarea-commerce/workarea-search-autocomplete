@@ -136,25 +136,34 @@ module Workarea
         create_search_by_week(query_string: 'test two', searches: 10, total_results: 5)
 
         visit storefront.root_path
+        fill_in 'q', with: ''
+        within '#search_autocomplete' do
+          assert_text(t('workarea.storefront.search_autocomplete.trending_products'))
+          assert_text(t('workarea.storefront.search_autocomplete.trending_searches'))
+          assert_match(/Foo Product.*Baz Product.*Bar Product/m, page.body)
+          assert_match(/foo search.*baz search.*bar search/m, page.body)
+        end
 
         fill_in 'q', with: 'te'
-
         within '#search_autocomplete' do
           assert_text('Test Two')
           assert_match(/test two.*test one/m, page.body)
         end
 
         fill_in 'q', with: ''
-
-        assert_selector('#search_autocomplete', visible: false)
-
-        fill_in 'q', with: 'corge'
-
         within '#search_autocomplete' do
           assert_text(t('workarea.storefront.search_autocomplete.trending_products'))
           assert_text(t('workarea.storefront.search_autocomplete.trending_searches'))
-          assert_match(/Foo Product.*Baz Product.*Bar Product/m, page.body);
-          assert_match(/foo search.*baz search.*bar search/m, page.body);
+          assert_match(/Foo Product.*Baz Product.*Bar Product/m, page.body)
+          assert_match(/foo search.*baz search.*bar search/m, page.body)
+        end
+
+        fill_in 'q', with: 'corge'
+        within '#search_autocomplete' do
+          assert_text(t('workarea.storefront.search_autocomplete.trending_products'))
+          assert_text(t('workarea.storefront.search_autocomplete.trending_searches'))
+          assert_match(/Foo Product.*Baz Product.*Bar Product/m, page.body)
+          assert_match(/foo search.*baz search.*bar search/m, page.body)
         end
       end
     end
