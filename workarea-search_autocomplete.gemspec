@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.summary     = 'Adds search autocomplete to storefront'
   spec.description = 'Adds search autocomplete to storefront'
 
-  spec.files = `git ls-files`.split('\n')
+  spec.files = `git ls-files`.split("\n")
 
   spec.add_dependency 'workarea', '~> 3.x', '>= 3.5.x'
 end
