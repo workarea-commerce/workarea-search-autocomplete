@@ -25,7 +25,7 @@ WORKAREA.registerModule('searchAutocomplete', (function () {
         },
 
         handleUserClick = function (event) {
-            if (_.isEmpty($(event.target).closest($('#search_autocomplete')))) {
+            if (!$(event.target).is($(WORKAREA.config.searchAutocomplete.selector))) {
                 hide();
             }
         },
