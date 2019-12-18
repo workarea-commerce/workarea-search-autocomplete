@@ -1,3 +1,13 @@
+Workarea Search Autocomplete 1.0.1 (2019-12-17)
+--------------------------------------------------------------------------------
+
+*   Fix disappearing autocomplete on click of search input
+
+    SEARCHAUTO-3
+    Matt Duffy
+
+
+
 Workarea Search Autocomplete 1.0.0 (2019-11-26)
 --------------------------------------------------------------------------------
 
