@@ -15,11 +15,15 @@ WORKAREA.registerModule('searchAutocomplete', (function () {
         },
 
         render = function (response) {
+            var $response = $(response);
+
+            WORKAREA.initModules($response);
+
             $('#search_autocomplete')
             .removeClass('visually-hidden')
             .addClass('search-autocomplete--visible')
             .empty()
-            .append(response)
+            .append($response)
                 .closest('.page-header__search-value')
                 .addClass('page-header__search-value--autocomplete');
         },
