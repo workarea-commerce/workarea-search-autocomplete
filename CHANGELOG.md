@@ -1,3 +1,17 @@
+Workarea Search Autocomplete 1.0.2 (2020-01-21)
+--------------------------------------------------------------------------------
+
+*   Re-initialize modules on template response
+
+    When the autocomplete view is rendered we need to re-initialize the
+    JavaScript modules to ensure that their functionality is provided to the
+    template.
+
+    SEARCHAUTO-4
+    Curt Howard
+
+
+
 Workarea Search Autocomplete 1.0.1 (2019-12-17)
 --------------------------------------------------------------------------------
 
