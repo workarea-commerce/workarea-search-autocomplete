@@ -1,23 +1,24 @@
 .grid.grid--rev
-  .grid__cell.grid__cell--25
+  .grid__cell.grid__cell--25-at-medium.grid__cell--100
     - if @autocomplete.searches.any?
-      %span.search-autocomplete__heading
-        - if @autocomplete.trending_searches?
-          = t('workarea.storefront.search_autocomplete.trending_searches')
-        - else
-          = t('workarea.storefront.search_autocomplete.popular_searches')
+      .search-autocomplete__searches
+        %span.search-autocomplete__heading
+          - if @autocomplete.trending_searches?
+            = t('workarea.storefront.search_autocomplete.trending_searches')
+          - else
+            = t('workarea.storefront.search_autocomplete.popular_searches')
 
-      %ul.search-autocomplete__searches
-        - @autocomplete.searches.each do |search|
-          %li.search-autocomplete__searches-item
-            = link_to search, search_path(q: search), class: 'search-autocomplete__searches-link'
+        %ul.search-autocomplete__searches-list
+          - @autocomplete.searches.each do |search|
+            %li.search-autocomplete__searches-item
+              = link_to search, search_path(q: search), class: 'search-autocomplete__searches-link'
 
     = append_partials('storefront.search_autocomplete_under_searches')
 
-  .grid__cell.grid__cell--75
+  .grid__cell.grid__cell--75-at-medium.grid__cell--100
     - if @autocomplete.products.any?
       .search-autocomplete__products
-        %span.search-autocomplete__heading
+        %span.search-autocomplete__heading.search-autocomplete__heading--centered-at-small
           - if @autocomplete.trending_products?
             = t('workarea.storefront.search_autocomplete.trending_products')
           - else
@@ -25,7 +26,7 @@
 
         .grid
           - @autocomplete.products.each do |product|
-            .grid__cell.grid__cell--25
+            .grid__cell.grid__cell--25-at-medium.grid__cell--100
               .product-summary
                 = render 'workarea/storefront/products/summary', product: product
 

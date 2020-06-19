@@ -15,13 +15,12 @@ $search-autocomplete-z-indexes: ();
 }
 
 .search-autocomplete {
-    display: none;
+    display: block;
     background: $search-autocomplete-bg-color;
     border: $search-autocomplete-border;
     padding: $spacing-unit;
 
     @include respond-to($medium-breakpoint) {
-        display: block;
         width: 90vw;
     }
 
@@ -35,8 +34,25 @@ $search-autocomplete-z-indexes: ();
     top: 100%;
     right: 0;
     z-index: index($search-autocomplete-z-indexes, search-autocomplete);
+
+    @include respond-to($medium-breakpoint) {
+        left: auto;
+    }
 }
 
+    .search-autocomplete__heading {}
+
+    .search-autocomplete__heading--centered-at-small {
+        @include respond-to($small-breakpoint) {
+            text-align: center;
+            display: block;
+        }
+
+        @include respond-to($medium-breakpoint) {
+            text-align: left;
+            display: inline;
+        }
+    }
 
     .search-autocomplete__products {
         text-align: left;
@@ -44,9 +60,18 @@ $search-autocomplete-z-indexes: ();
 
 
     .search-autocomplete__searches {
-        @extend %list-reset;
-        text-align: right;
+        @include respond-to($small-breakpoint) {
+            text-align: center;
+        }
+
+        @include respond-to($medium-breakpoint) {
+            text-align: right;
+        }
     }
+
+        .search-autocomplete__searches-list {
+            @extend %list-reset;
+        }
 
         .search-autocomplete__searches-item {}
 
