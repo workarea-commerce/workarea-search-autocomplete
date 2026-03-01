@@ -20,4 +20,6 @@ Gem::Specification.new do |spec|
   spec.files = `git ls-files`.split("\n")
 
   spec.add_dependency 'workarea', '~> 3.x', '>= 3.5.x'
+  s.required_ruby_version = '>= 2.7', '< 3.5'
+
 end
